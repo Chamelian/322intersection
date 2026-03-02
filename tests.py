@@ -6,19 +6,46 @@ I acknowledge that I have worked on this assignment independently, except where 
 """
 
 import unittest
-from main import add_positive_integers
 
-class TestMathFunctions(unittest.TestCase):
-    def test_sum_correct(self):
-        self.assertEqual(add_positive_integers(5, 10), 15)
+from main import Line, constructLine, constructPoint, lineIntersection
 
-    def test_negative_input(self):
-        with self.assertRaises(ValueError):
-            add_positive_integers(-1, 5)
 
-    def test_wrong_type(self):
-        with self.assertRaises(ValueError):
-            add_positive_integers("5", 5) # type: ignore
+class TestLineIntersection(unittest.TestCase):
+    def test_basic_intersect1(self) -> None:
+        line1: Line = constructLine(constructPoint(0, 2), constructPoint(2, 0))
+        line2: Line = constructLine(constructPoint(1, 2), constructPoint(2, 0))
+        self.assertEqual(lineIntersection(line1, line2), True)
+
+    def test_basic_intersect2(self) -> None:
+        line1: Line = constructLine(constructPoint(0, 4), constructPoint(2, 0))
+        line2: Line = constructLine(constructPoint(1, 2), constructPoint(2, 0))
+        self.assertEqual(lineIntersection(line1, line2), True)
+
+    def test_basic_intersect3(self) -> None:
+        line1: Line = constructLine(constructPoint(0, 4), constructPoint(2, 0))
+        line2: Line = constructLine(constructPoint(1, 2), constructPoint(3, -2))
+        self.assertEqual(lineIntersection(line1, line2), True)
+
+    def test_basic_intersect4(self) -> None:
+        line1: Line = constructLine(constructPoint(0, 4), constructPoint(3, -2))
+        line2: Line = constructLine(constructPoint(1, 2), constructPoint(2, 0))
+        self.assertEqual(lineIntersection(line1, line2), True)
+
+    def test_basic_intersect5(self) -> None:
+        line1: Line = constructLine(constructPoint(0, 4), constructPoint(3, -2))
+        line2: Line = constructLine(constructPoint(6, 2), constructPoint(4, 0))
+        self.assertEqual(lineIntersection(line1, line2), False)
+
+    def test_basic_intersect6(self) -> None:
+        line1: Line = constructLine(constructPoint(2, 4), constructPoint(5, 2))
+        line2: Line = constructLine(constructPoint(6, 2), constructPoint(4, 0))
+        self.assertEqual(lineIntersection(line1, line2), False)
+
+    def test_basic_intersect7(self) -> None:
+        line1: Line = constructLine(constructPoint(2, 4), constructPoint(5, 2))
+        line2: Line = constructLine(constructPoint(6, 6), constructPoint(4, 0))
+        self.assertEqual(lineIntersection(line1, line2), True)
+
 
 if __name__ == "__main__":
     unittest.main()
