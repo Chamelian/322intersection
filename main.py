@@ -6,19 +6,16 @@ I acknowledge that I have worked on this assignment independently, except where 
 """
 
 # Typing
-type Point = tuple[int, int]
-type Line = tuple[Point, Point]
 
-
-def constructPoint(x: int, y: int) -> Point:
+def constructPoint(x: int, y: int) -> tuple[int, int]:
     return (x, y)
 
 
-def constructLine(point1: Point, point2: Point) -> Line:
+def constructLine(point1: tuple[int, int], point2: tuple[int, int]) -> tuple[tuple[int, int], tuple[int, int]]:
     return (point1, point2)
 
 
-def lineIntersection(line1: Line, line2: Line) -> bool:
+def lineIntersection(line1: tuple[tuple[int, int], tuple[int, int]], line2: tuple[tuple[int, int], tuple[int, int]]) -> bool:
     orientation1: int = getOrientation(line1[0], line1[1], line2[0])
     orientation2: int = getOrientation(line1[0], line1[1], line2[1])
 
@@ -39,7 +36,7 @@ def lineIntersection(line1: Line, line2: Line) -> bool:
 
 
 # Convoluted. Needs to be refactored or extensively documented
-def testAxisIntersect(line1: Line, line2: Line, direction: str) -> bool:
+def testAxisIntersect(line1: tuple[tuple[int, int], tuple[int, int]], line2: tuple[tuple[int, int], tuple[int, int]], direction: str) -> bool:
     point1: int
     point2: int
     point3: int
@@ -67,7 +64,7 @@ def testAxisIntersect(line1: Line, line2: Line, direction: str) -> bool:
     )
 
 
-def getOrientation(point1: Point, point2: Point, point3: Point) -> int:
+def getOrientation(point1: tuple[int, int], point2: tuple[int, int], point3: tuple[int, int]) -> int:
     orientation: int = ((point2[1] - point1[1]) * (point3[0] - point2[0])) - (
         (point3[1] - point2[1]) * (point2[0] - point1[0])
     )
@@ -81,7 +78,7 @@ def getOrientation(point1: Point, point2: Point, point3: Point) -> int:
 
 
 if __name__ == "__main__":
-    firstLine: Line = constructLine(constructPoint(0, 2), constructPoint(2, 0))
-    secondLine: Line = constructLine(constructPoint(1, 2), constructPoint(2, 1))
+    firstLine: tuple[tuple[int, int], tuple[int, int]] = constructLine(constructPoint(0, 2), constructPoint(2, 0))
+    secondLine: tuple[tuple[int, int], tuple[int, int]] = constructLine(constructPoint(1, 2), constructPoint(2, 1))
 
     print(lineIntersection(firstLine, secondLine))
